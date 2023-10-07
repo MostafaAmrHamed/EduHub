@@ -12,8 +12,11 @@ const config: Config = {
         primary: {
           1: "#3F2768",
           2: "#F4F5FF",
-          3: "C5B8D3",
+          3: "#C5B8D3",
         },
+      },
+      transitionProperty: {
+        width: "width",
       },
     },
   },
