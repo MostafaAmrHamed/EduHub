@@ -2,7 +2,9 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { FaUser } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 import {
   BiLogOut,
   BiSolidBookAdd,
@@ -10,6 +12,7 @@ import {
   BiSolidHome,
   BiSolidDashboard,
 } from "react-icons/bi";
+import edhHub from "../../public/EduHubLogo.png";
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const pathname = usePathname();
@@ -18,7 +21,7 @@ const Navbar = () => {
     <div>
       {/* Side-Navbar */}
       <div
-        className="fixed bg-primary-1 pt-8 h-screen rounded-r-xl hover:w-[250px] w-[75px]  transition-width ease-in-out"
+        className="fixed bg-primary-1 pt-8 h-screen rounded-r-xl hover:w-[250px] w-[50px] md:w-[80px]  transition-width ease-in-out"
         onMouseEnter={() => {
           setToggleNav(true);
         }}
@@ -27,13 +30,22 @@ const Navbar = () => {
         }}
       >
         {/* Logo */}
-        <div className="mb-10 pl-2 text-xl w-full p-0">
-          <p className="">
-            Edu
-            <span className="bg-primary-2 text-primary-1 ml-1 px-1 rounded-md font-semibold transition-all ease-in">
-              H{toggleNav ? <span>ub</span> : ""}
-            </span>
-          </p>
+        <div
+          className={`flex md:justify-center justify-between items-center h-[120px] w-full ${
+            toggleNav ? "px-2" : ""
+          }`}
+        >
+          <div className="px-1 md:px-0">
+            <Image src={edhHub} alt="logo" className="w-[70px]" />
+          </div>
+          <div
+            className=" md:hidden"
+            onClick={() => {
+              setToggleNav(false);
+            }}
+          >
+            {toggleNav ? <AiOutlineClose size={24} /> : ""}
+          </div>
         </div>
 
         {/* Links */}
@@ -41,7 +53,7 @@ const Navbar = () => {
           <ul className="flex flex-col gap-8 text-xl text-primary-3">
             <Link href="/">
               <li
-                className={`flex items-center gap-5 pr-4 ${
+                className={`flex items-center gap-1 md:gap-5 pr-4 ${
                   pathname == "/" ? "text-primary-2" : ""
                 }`}
               >
@@ -55,13 +67,15 @@ const Navbar = () => {
                 <div>
                   <BiSolidHome size={24} />
                 </div>
-                <p className={`${toggleNav ? "" : "hidden"}`}>Home</p>
+                <p className={`${toggleNav ? "" : "hidden"} ml-4 md:ml-0`}>
+                  Home
+                </p>
               </li>
             </Link>
 
             <Link href="/dashboard">
               <li
-                className={`flex items-center gap-5 pr-4 ${
+                className={`flex items-center gap-1 md:gap-5 pr-4 ${
                   pathname == "/dashboard" ? "text-primary-2" : ""
                 }`}
               >
@@ -75,7 +89,9 @@ const Navbar = () => {
                 <div>
                   <BiSolidDashboard size={24} />
                 </div>
-                <p className={`${toggleNav ? "" : "hidden"}`}>Dashboard</p>
+                <p className={`${toggleNav ? "" : "hidden"} ml-4 md:ml-0`}>
+                  Dashboard
+                </p>
               </li>
             </Link>
           </ul>
