@@ -12,7 +12,7 @@ import {
   BiSolidHome,
   BiSolidDashboard,
 } from "react-icons/bi";
-import edhHub from "../../public/EduHubLogo.png";
+import edhHub from "../../public/images/EduHubLogo.png";
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const pathname = usePathname();
@@ -105,9 +105,7 @@ const Navbar = () => {
             <BiLogOut
               size={24}
               className={`${toggleNav ? "" : "hidden"} cursor-pointer`}
-            >
-              Logout
-            </BiLogOut>
+            />
           </div>
         </div>
       </div>
