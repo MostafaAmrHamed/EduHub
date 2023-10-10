@@ -18,6 +18,10 @@ const config: Config = {
       transitionProperty: {
         width: "width",
       },
+      screens: {
+        xs: "320px",
+        sm: "375px",
+      },
     },
   },
   plugins: [],

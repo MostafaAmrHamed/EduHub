@@ -39,7 +39,7 @@ const Navbar = () => {
             <Image src={edhHub} alt="logo" className="w-[70px]" />
           </div>
           <div
-            className=" md:hidden"
+            className="md:hidden text-primary-2"
             onClick={() => {
               setToggleNav(false);
             }}
@@ -94,10 +94,32 @@ const Navbar = () => {
                 </p>
               </li>
             </Link>
+
+            <Link href="/create-exam">
+              <li
+                className={`flex items-center gap-1 md:gap-5 pr-4 ${
+                  pathname == "/create-exam" ? "text-primary-2" : ""
+                }`}
+              >
+                <span
+                  className={`border-l-4 ${
+                    pathname == "/create-exam" ? "" : "border-transparent"
+                  }`}
+                >
+                   
+                </span>
+                <div>
+                  <BiSolidBookAdd size={24} />
+                </div>
+                <p className={`${toggleNav ? "" : "hidden"} ml-4 md:ml-0`}>
+                  CreateExam
+                </p>
+              </li>
+            </Link>
           </ul>
         </div>
         <div className="px-4 pt-4 h-[60px] absolute bottom-0 rounded-br-lg bg-[#948EE3] w-full">
-          <div className="flex items-center justify-around gap-5 transition-all ease-in-out duration-300">
+          <div className="flex items-center justify-around gap-5 transition-all ease-in-out duration-300 text-primary-2">
             <div className="flex items-center gap-2">
               <FaUser size={24} />
               <p className={`${toggleNav ? "" : "hidden"} text-md`}>UserName</p>
