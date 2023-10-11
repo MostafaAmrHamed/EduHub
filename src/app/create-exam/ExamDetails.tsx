@@ -7,11 +7,10 @@ import medium from "../../../public/images/Medium.png";
 import hard from "../../../public/images/Hard.png";
 
 const ExamDetails = () => {
-  const [difficulty, setDifficulty] = useState<string>("");
   const [examDetails, setExamDetails] = useState<ExamDetials>({
     titleOfExam: "",
     class: "",
-    difficulty: difficulty,
+    difficulty: "",
     time: 1,
   });
   const Classes = [
@@ -20,8 +19,14 @@ const ExamDetails = () => {
     { value: "two", text: "Two" },
     { value: "three", text: "Three" },
   ];
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+  };
   return (
-    <form className="flex flex-col gap-8 px-12 py-5 border-2 border-primary-1 rounded">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-8 px-12 py-5 border-2 border-primary-1 rounded"
+    >
       {/* Title of exam */}
       <div>
         <label className="block mt-2 text-lg"> Title </label>
@@ -55,11 +60,11 @@ const ExamDetails = () => {
         {/* Time of exam */}
         <div>
           <label className="block mt-2 text-lg"> Duration in mins </label>
-          <div className="flex items-center justify-between p-2 w-[200px] h-[50px] border-2 border-primary-1 bg-primary-2 rounded text-xl">
+          <div className="flex items-center justify-between p-2 w-[200px] h-[50px] border-2 border-primary-3 bg-primary-2 rounded text-xl">
             <p
-              className="text-4xl text-primary-1 pr-2 border-r-2 border-primary-1 leading-7 cursor-pointer select-none"
+              className="text-4xl text-primary-1 pr-2 border-r-2 border-primary-3 leading-7 cursor-pointer select-none"
               onClick={(e) => {
-                examDetails.time !== 0
+                examDetails.time > 1
                   ? setExamDetails({
                       ...examDetails,
                       time: examDetails.time - 1,
@@ -83,9 +88,9 @@ const ExamDetails = () => {
               maxLength={3}
             />
             <p
-              className="text-4xl text-primary-1 pl-2 border-l-2 border-primary-1 leading-7 cursor-pointer select-none"
+              className="text-4xl text-primary-1 pl-2 border-l-2 border-primary-3 leading-7 cursor-pointer select-none"
               onClick={(e) => {
-                examDetails.time <= 130
+                examDetails.time <= 180
                   ? setExamDetails({
                       ...examDetails,
                       time: examDetails.time + 1,
@@ -105,10 +110,10 @@ const ExamDetails = () => {
         <div className="flex gap-[25px] text-lg">
           <div
             className={`flex gap-1 items-center justify-center w-[150px] h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
-              difficulty === "easy" && " border-primary-1"
+              examDetails.difficulty === "easy" && " !border-primary-1"
             } `}
             onClick={() => {
-              setDifficulty("easy");
+              setExamDetails({ ...examDetails, difficulty: "easy" });
             }}
           >
             <Image src={easy} alt="difficulty-easy" className="w-[20px]" />
@@ -116,10 +121,10 @@ const ExamDetails = () => {
           </div>
           <div
             className={`flex gap-1 items-center justify-center w-[150px] h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
-              difficulty === "medium" && " border-primary-1"
+              examDetails.difficulty === "medium" && " !border-primary-1"
             } `}
             onClick={() => {
-              setDifficulty("medium");
+              setExamDetails({ ...examDetails, difficulty: "medium" });
             }}
           >
             <Image src={medium} alt="difficulty-medium" className="w-[20px]" />
@@ -127,11 +132,10 @@ const ExamDetails = () => {
           </div>
           <div
             className={`flex gap-1 items-center justify-center w-[150px] h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
-              difficulty === "hard" && " border-primary-1"
+              examDetails.difficulty === "hard" && " !border-primary-1"
             } `}
             onClick={() => {
-              setDifficulty("hard");
-              console.log(difficulty);
+              setExamDetails({ ...examDetails, difficulty: "hard" });
             }}
           >
             <Image src={hard} alt="difficulty-hard" className="w-[20px]" />
