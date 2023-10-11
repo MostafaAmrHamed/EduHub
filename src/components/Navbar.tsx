@@ -16,6 +16,7 @@ import edhHub from "../../public/images/EduHubLogo.png";
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const pathname = usePathname();
+
   return (
     //container lg:px-20 py-6 px-5
     <div>
@@ -36,7 +37,12 @@ const Navbar = () => {
           }`}
         >
           <div className="px-1 md:px-0">
-            <Image src={edhHub} alt="logo" className="w-[70px]" />
+            <Image
+              src={edhHub}
+              alt="logo"
+              className="w-[70px]"
+              priority={true}
+            />
           </div>
           <div
             className="md:hidden text-primary-2"
@@ -76,12 +82,12 @@ const Navbar = () => {
             <Link href="/dashboard">
               <li
                 className={`flex items-center gap-1 md:gap-5 pr-4 ${
-                  pathname == "/dashboard" ? "text-primary-2" : ""
+                  pathname.includes("dashboard") ? "text-primary-2" : ""
                 }`}
               >
                 <span
                   className={`border-l-4 ${
-                    pathname == "/dashboard" ? "" : "border-transparent"
+                    pathname.includes("dashboard") ? "" : "border-transparent"
                   }`}
                 >
                    
@@ -98,12 +104,12 @@ const Navbar = () => {
             <Link href="/create-exam">
               <li
                 className={`flex items-center gap-1 md:gap-5 pr-4 ${
-                  pathname == "/create-exam" ? "text-primary-2" : ""
+                  pathname.includes("create-exam") ? "text-primary-2" : ""
                 }`}
               >
                 <span
                   className={`border-l-4 ${
-                    pathname == "/create-exam" ? "" : "border-transparent"
+                    pathname.includes("create-exam") ? "" : "border-transparent"
                   }`}
                 >
                    
