@@ -25,26 +25,26 @@ const ExamDetails = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-8 px-12 py-5 border-2 border-primary-1 rounded"
+      className="flex flex-col items-center md:items-end gap-2 md:gap-8 p-2 sm:p-5 md:px-12 md:py-5 border-2 border-primary-1 rounded"
     >
       {/* Title of exam */}
       <div>
         <label className="block mt-2 text-lg"> Title </label>
         <input
           type="text"
-          className="p-2.5 w-[500px] h-[50px] border-primary-3 border-2 outline-none focus:ring-primary-1 focus:border-primary-1 bg-primary-2 rounded"
+          className="p-2.5 w-[220px] h-[40px] md:w-[500px] md:h-[50px] border-primary-3 border-2 outline-none focus:ring-primary-1 focus:border-primary-1 bg-primary-2 rounded"
           onChange={(e) => {
             setExamDetails({ ...examDetails, titleOfExam: e.target.value });
           }}
           value={examDetails.titleOfExam}
         />
       </div>
-      <div className="flex gap-[50px]">
+      <div className="flex flex-col md:flex-row gap-2 md:gap-[50px]">
         {/* Class */}
         <div>
           <label className="block mt-2 text-lg"> Class </label>
           <select
-            className="p-2.5 w-[250px] block h-[50px] border-primary-3 border-2 outline-none focus:ring-primary-1  focus:border-primary-1 bg-primary-2 rounded"
+            className="md:p-2.5 w-[220px] h-[40px] md:w-[250px] md:h-[50px] block border-primary-3 border-2 outline-none focus:ring-primary-1  focus:border-primary-1 bg-primary-2 rounded"
             value={examDetails.class}
             onChange={(e) => {
               setExamDetails({ ...examDetails, class: e.target.value });
@@ -60,7 +60,7 @@ const ExamDetails = () => {
         {/* Time of exam */}
         <div>
           <label className="block mt-2 text-lg"> Duration in mins </label>
-          <div className="flex items-center justify-between p-2 w-[200px] h-[50px] border-2 border-primary-3 bg-primary-2 rounded text-xl">
+          <div className="flex items-center justify-between p-2 w-[220px] h-[40px] md:w-[200px] md:h-[50px] border-2 border-primary-3 bg-primary-2 rounded text-xl">
             <p
               className="text-4xl text-primary-1 pr-2 border-r-2 border-primary-3 leading-7 cursor-pointer select-none"
               onClick={(e) => {
@@ -107,9 +107,9 @@ const ExamDetails = () => {
       {/* Difficulty */}
       <div>
         <label className="block mt-2 text-lg"> Difficulty </label>
-        <div className="flex gap-[25px] text-lg">
+        <div className="flex flex-col gap-2 justify-items-center md:flex-row md:gap-[25px] text-lg">
           <div
-            className={`flex gap-1 items-center justify-center w-[150px] h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
+            className={`flex gap-1 items-center justify-center w-[220px] h-[40px] md:w-[150px] md:h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
               examDetails.difficulty === "easy" && " !border-primary-1"
             } `}
             onClick={() => {
@@ -120,7 +120,7 @@ const ExamDetails = () => {
             <p>Easy</p>
           </div>
           <div
-            className={`flex gap-1 items-center justify-center w-[150px] h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
+            className={`flex gap-1 items-center justify-center w-[220px] h-[40px] md:w-[150px] md:h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
               examDetails.difficulty === "medium" && " !border-primary-1"
             } `}
             onClick={() => {
@@ -131,7 +131,7 @@ const ExamDetails = () => {
             <p>Medium</p>
           </div>
           <div
-            className={`flex gap-1 items-center justify-center w-[150px] h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
+            className={`flex gap-1 items-center justify-center w-[220px] h-[40px] md:w-[150px] md:h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
               examDetails.difficulty === "hard" && " !border-primary-1"
             } `}
             onClick={() => {
@@ -145,9 +145,9 @@ const ExamDetails = () => {
       </div>
 
       {/* Next Button */}
-      <div className="flex justify-end">
+      <div className="flex !justify-end mt-2">
         <button
-          className="flex items-center justify-center border-2 border-primary-1 w-[150px] h-[50px] rounded text-lg text-primary-2 bg-primary-1 transition-all hover:pl-2 ease-in-out duration-300"
+          className="flex items-center justify-center border-2 border-primary-1 w-[220px] h-[40px] md:w-[150px] md:h-[50px] rounded text-lg text-primary-2 bg-primary-1 transition-all hover:pl-2 ease-in-out duration-300"
           onClick={() => {
             console.log(examDetails);
           }}
