@@ -5,6 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import easy from "../../../public/images/Easy.png";
 import medium from "../../../public/images/Medium.png";
 import hard from "../../../public/images/Hard.png";
+import Link from "next/link";
 
 const ExamDetails = () => {
   const [examDetails, setExamDetails] = useState<ExamDetials>({
@@ -146,14 +147,15 @@ const ExamDetails = () => {
 
       {/* Next Button */}
       <div className="flex !justify-end mt-2">
-        <button
+        <Link
           className="flex items-center justify-center border-2 border-primary-1 w-[220px] h-[40px] md:w-[150px] md:h-[50px] rounded text-lg text-primary-2 bg-primary-1 transition-all hover:pl-2 ease-in-out duration-300"
           onClick={() => {
             console.log(examDetails);
           }}
+          href="/create-exam/form"
         >
           Next <IoIosArrowForward />
-        </button>
+        </Link>
       </div>
     </form>
   );
