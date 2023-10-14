@@ -18,6 +18,7 @@ import { AuthModule } from './modules/auth/auth.module';
           .default('development'),
         PORT: Joi.number().default(3001),
         MONGO_URI: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
       }),
     }),
     MongooseModule.forRootAsync({
