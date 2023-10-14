@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
+import { MdClass } from "react-icons/md";
 import {
   BiLogOut,
   BiSolidBookAdd,
@@ -12,7 +13,7 @@ import {
   BiSolidHome,
   BiSolidDashboard,
 } from "react-icons/bi";
-import edhHub from "../../public/images/EduHubLogo.png";
+
 const Navbar = () => {
   const [toggleNav, setToggleNav] = useState<boolean>(false);
   const pathname = usePathname();
@@ -122,9 +123,31 @@ const Navbar = () => {
                 </p>
               </li>
             </Link>
+
+            <Link href="/classes">
+              <li
+                className={`flex items-center gap-1 md:gap-5 pr-4 ${
+                  pathname.includes("classes") ? "text-primary-2" : ""
+                }`}
+              >
+                <span
+                  className={`border-l-4 ${
+                    pathname.includes("classes") ? "" : "border-transparent"
+                  }`}
+                >
+                   
+                </span>
+                <div>
+                  <MdClass size={24} />
+                </div>
+                <p className={`${toggleNav ? "" : "hidden"} ml-4 md:ml-0`}>
+                  Classes
+                </p>
+              </li>
+            </Link>
           </ul>
         </div>
-        <div className="px-4 pt-4 h-[60px] absolute bottom-0 rounded-br-lg bg-[#948EE3] w-full">
+        <div className="px-4 pt-4 h-[60px] absolute bottom-0 rounded-br-lg bg-primary-4 w-full">
           <div className="flex items-center justify-around gap-5 transition-all ease-in-out duration-300 text-primary-2">
             <div className="flex items-center gap-2">
               <FaUser size={24} />
