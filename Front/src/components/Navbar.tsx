@@ -36,11 +36,11 @@ const Navbar = () => {
             toggleNav ? "px-2" : ""
           }`}
         >
-          <div className="px-1 md:px-0">
+          <div className="px-1 md:px-0 ml-1 md:ml-0 w-[40px] md:w-[70px] aspect-square  relative">
             <Image
-              src={edhHub}
+              src="/images/EduHubLogo.png"
+              fill
               alt="logo"
-              className="w-[70px]"
               priority={true}
             />
           </div>
@@ -57,15 +57,15 @@ const Navbar = () => {
         {/* Links */}
         <div>
           <ul className="flex flex-col gap-8 text-xl text-primary-3">
-            <Link href="/">
+            <Link href="/home">
               <li
                 className={`flex items-center gap-1 md:gap-5 pr-4 ${
-                  pathname == "/" ? "text-primary-2" : ""
+                  pathname == "/home" ? "text-primary-2" : ""
                 }`}
               >
                 <span
                   className={`border-l-4 ${
-                    pathname == "/" ? "" : "border-transparent"
+                    pathname == "/home" ? "" : "border-transparent"
                   }`}
                 >
                    
