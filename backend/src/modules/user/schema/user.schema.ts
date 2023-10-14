@@ -1,5 +1,5 @@
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
-
+import * as bcrypt from 'bcrypt';
 enum Role {
   USER,
   ADMIN,
@@ -22,3 +22,13 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.pre('save', async function () {
+  if (!this.isNew) {
+    return;
+  }
+
+  const hashedPassword = await bcrypt.hash(this.password, 12);
+
+  this.password = hashedPassword;
+});
