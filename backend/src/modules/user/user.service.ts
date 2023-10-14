@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -17,5 +17,14 @@ export class UserService {
     return {
       data: 'User Created',
     };
+  }
+
+  async findByName(name: string) {
+    const user = await this.userRepo.findOne({ name });
+    if (!user) {
+      throw new BadRequestException();
+    }
+
+    return user;
   }
 }
