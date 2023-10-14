@@ -1,9 +1,8 @@
 import Image from "next/image";
-import Logo from "../../../public/images/EduHubLogo.png";
 
 const Login = () => {
   return (
-    <div className="flex flex-col items-center gap-5 mt-10">
+    <div className="flex flex-col justify-center items-center h-screen">
       <div className="w-[75px] h-[60px] md:w-[100px] md:h-[75px] relative">
         <Image
           src="/images/EduHubLogo.png"
