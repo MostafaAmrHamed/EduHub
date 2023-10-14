@@ -2,9 +2,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
-import easy from "../../../public/images/Easy.png";
-import medium from "../../../public/images/Medium.png";
-import hard from "../../../public/images/Hard.png";
 import Link from "next/link";
 
 const ExamDetails = () => {
