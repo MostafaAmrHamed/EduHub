@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -17,6 +18,14 @@ import * as Joi from 'joi';
         PORT: Joi.number().default(3001),
         MONGO_URI: Joi.string().required(),
       }),
+    }),
+    MongooseModule.forRootAsync({
+      useFactory: (configService: ConfigService) => {
+        return {
+          uri: configService.get('MONGO_URI'),
+        };
+      },
+      inject: [ConfigService],
     }),
     UserModule,
   ],
