@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, UseGuards, Req, HttpCode } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local.guard';
 import { Request } from 'express';
@@ -16,12 +16,13 @@ export class AuthController {
     description: 'The record has been successfully created.',
     schema: { example: { access_token: 'some token' } },
   })
-  @ApiResponse({ status: 403, description: 'UnAuthorized user' })
+  @ApiResponse({ status: 401, description: 'Unauthorized user' })
   @ApiBody({
     type: LoginDto,
     description: 'Json structure for Login object',
   })
   @UseGuards(LocalAuthGuard)
+  @HttpCode(200)
   async login(@Req() req: Request) {
     const user = req.user as HydratedDocument<User>;
     return this.authService.login(user);

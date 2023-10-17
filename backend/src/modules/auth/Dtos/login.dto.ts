@@ -8,7 +8,7 @@ export class LoginDto {
   })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  username: string;
   @ApiProperty({
     required: true,
     example: '!Aa123456789',
