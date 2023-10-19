@@ -1,8 +1,8 @@
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
-enum Role {
-  USER,
-  ADMIN,
+export enum Role {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
 }
 
 @Schema({ timestamps: true })
