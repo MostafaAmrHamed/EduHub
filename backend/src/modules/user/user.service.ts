@@ -27,4 +27,12 @@ export class UserService {
 
     return user;
   }
+  async findById(id: string) {
+    const user = await this.userRepo.findById(id);
+    if (!user) {
+      throw new BadRequestException();
+    }
+
+    return user;
+  }
 }
