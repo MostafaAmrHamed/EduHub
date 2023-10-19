@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -14,19 +14,27 @@ export class ClassesService {
     return this.classRepo.create(createClassDto);
   }
 
-  findAll() {
-    return this.classRepo.find();
+  async findAll(query: Record<string, string>) {
+    const filters: Record<string, any> = {};
+    if (query.name) {
+      filters.name = { $regex: new RegExp(query.name, 'i') };
+    }
+    return this.classRepo.find(filters);
   }
 
-  findOne(id: string) {
-    return this.classRepo.findById(id);
+  async findOne(id: string) {
+    const result = await this.classRepo.findById(id);
+    if (!result) {
+      return new NotFoundException();
+    }
+    return result;
   }
 
-  update(id: string, updateClassDto: UpdateClassDto) {
+  async update(id: string, updateClassDto: UpdateClassDto) {
     return this.classRepo.findByIdAndUpdate(id, updateClassDto, { new: true });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return this.classRepo.findByIdAndDelete(id);
   }
 }
