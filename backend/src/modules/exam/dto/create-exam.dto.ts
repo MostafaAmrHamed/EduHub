@@ -22,7 +22,4 @@ export class CreateExamDto {
   @IsNotEmpty()
   @IsMongoId()
   class: mongoose.Schema.Types.ObjectId;
-  //TODO: change to a questions schema id after creating a questions module
-  @IsNotEmpty()
-  questions: string;
 }

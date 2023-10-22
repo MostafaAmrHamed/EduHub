@@ -22,8 +22,8 @@ export class Exam {
   })
   class: mongoose.Schema.Types.ObjectId;
   //TODO: change to a questions schema id after creating a questions module
-  @Prop({ required: true })
-  questions: string;
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], default: [] })
+  questions: mongoose.Schema.Types.ObjectId[];
 }
 
 export type ExamDocument = HydratedDocument<Exam>;
