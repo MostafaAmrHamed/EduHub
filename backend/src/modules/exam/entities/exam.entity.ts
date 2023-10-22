@@ -11,8 +11,8 @@ export enum Difficulty {
 export class Exam {
   @Prop({ required: true })
   title: string;
-  @Prop({ required: true })
-  duration: string;
+  @Prop({ required: true, min: 10 })
+  duration: number;
   @Prop({ required: true, enum: Difficulty })
   difficulty: Difficulty;
   @Prop({
