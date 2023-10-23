@@ -2,9 +2,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
-import easy from "../../../public/images/Easy.png";
-import medium from "../../../public/images/Medium.png";
-import hard from "../../../public/images/Hard.png";
 import Link from "next/link";
 
 const ExamDetails = () => {
@@ -112,12 +109,14 @@ const ExamDetails = () => {
           <div
             className={`flex gap-1 items-center justify-center w-[220px] h-[40px] md:w-[150px] md:h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
               examDetails.difficulty === "easy" && " !border-primary-1"
-            } `}
+            }`}
             onClick={() => {
               setExamDetails({ ...examDetails, difficulty: "easy" });
             }}
           >
-            <Image src={easy} alt="difficulty-easy" className="w-[20px]" />
+            <div className="relative w-5 h-7">
+              <Image src="/images/Easy.png" fill alt="difficulty-easy" />
+            </div>
             <p>Easy</p>
           </div>
           <div
@@ -128,7 +127,9 @@ const ExamDetails = () => {
               setExamDetails({ ...examDetails, difficulty: "medium" });
             }}
           >
-            <Image src={medium} alt="difficulty-medium" className="w-[20px]" />
+            <div className="relative w-5 h-7">
+              <Image src="/images/Medium.png" fill alt="difficulty-medium" />
+            </div>
             <p>Medium</p>
           </div>
           <div
@@ -139,7 +140,9 @@ const ExamDetails = () => {
               setExamDetails({ ...examDetails, difficulty: "hard" });
             }}
           >
-            <Image src={hard} alt="difficulty-hard" className="w-[20px]" />
+            <div className="relative w-5 h-7">
+              <Image src="/images/Hard.png" fill alt="difficulty-hard" />
+            </div>
             <p>Hard</p>
           </div>
         </div>
