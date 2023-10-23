@@ -5,6 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 import { CloudinaryProvider } from './cloudinary/cloudinary.provider';
 import { MongooseModule } from '@nestjs/mongoose';
 import { File, FileSchema } from './schema/file.schema';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   controllers: [FileUploadController],
@@ -12,6 +13,7 @@ import { File, FileSchema } from './schema/file.schema';
   imports: [
     HttpModule,
     MongooseModule.forFeature([{ name: File.name, schema: FileSchema }]),
+    AuthModule,
   ],
 })
 export class FileUploadModule {}
