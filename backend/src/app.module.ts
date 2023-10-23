@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './modules/auth/auth.module';
 import { ClassesModule } from './modules/classes/classes.module';
 import { ExamModule } from './modules/exam/exam.module';
+import { FileUploadModule } from './modules/file_upload/file_upload.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ExamModule } from './modules/exam/exam.module';
     AuthModule,
     ClassesModule,
     ExamModule,
+    FileUploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
