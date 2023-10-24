@@ -11,7 +11,10 @@ export class Question {
   title: string;
 
   @Prop({ required: true })
-  answers: Answer[];
+  answers: string[];
+
+  @Prop({ required: true })
+  correctAnswer: string;
 }
 
 export type QuestionDocument = HydratedDocument<Question>;

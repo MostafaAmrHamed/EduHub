@@ -1,11 +1,4 @@
-import {
-  IsNotEmpty,
-  IsString,
-  IsArray,
-  IsBoolean,
-  ValidateNested,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsString, IsArray, ArrayMinSize } from 'class-validator';
 import { Type } from 'class-transformer';
 export class CreateQuestionDto {
   @IsString()
@@ -14,17 +7,11 @@ export class CreateQuestionDto {
 
   @IsNotEmpty()
   @IsArray()
-  @MinLength(2)
-  @ValidateNested({ each: true })
-  @Type(() => IAnswer)
-  answers: IAnswer[];
-}
+  @Type(() => String)
+  @ArrayMinSize(2)
+  answers: string[];
 
-class IAnswer {
   @IsString()
   @IsNotEmpty()
-  choice: string;
-  @IsBoolean()
-  @IsNotEmpty()
-  isCorrect: string;
+  correctAnswer: string;
 }
