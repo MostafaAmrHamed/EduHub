@@ -1,9 +1,10 @@
-import ClassItem from "./components/ClassItem";
+import React from "react";
+import ClassItem from "./ClassItem";
 
 const Classes = () => {
   return (
-    <div className="mx-auto md:w-[638px]">
-      <div className="flex flex-col md:flex-row items-center gap-2">
+    <div className="flex flex-col gap-2 mt-5">
+      <div className="flex flex-col md:flex-row items-center gap-2 mb-5">
         <input
           type="text"
           className="p-2.5 w-[220px] h-[40px] md:w-[500px] border-primary-3 border-2 outline-none focus:ring-primary-1 focus:border-primary-1 bg-primary-2 rounded"
@@ -13,11 +14,9 @@ const Classes = () => {
           Add Class
         </button>
       </div>
-      <div className="flex flex-col gap-2 mt-5">
-        <ClassItem />
-        <ClassItem />
-        <ClassItem />
-      </div>
+      <ClassItem />
+      <ClassItem />
+      <ClassItem />
     </div>
   );
 };

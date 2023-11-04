@@ -124,15 +124,15 @@ const Navbar = () => {
               </li>
             </Link>
 
-            <Link href="/classes">
+            <Link href="/class">
               <li
                 className={`flex items-center gap-1 md:gap-5 pr-4 ${
-                  pathname.includes("classes") ? "text-primary-2" : ""
+                  pathname.includes("class") ? "text-primary-2" : ""
                 }`}
               >
                 <span
                   className={`border-l-4 ${
-                    pathname.includes("classes") ? "" : "border-transparent"
+                    pathname.includes("class") ? "" : "border-transparent"
                   }`}
                 >
                    
@@ -141,7 +141,7 @@ const Navbar = () => {
                   <MdClass size={24} />
                 </div>
                 <p className={`${toggleNav ? "" : "hidden"} ml-4 md:ml-0`}>
-                  Classes
+                  Class
                 </p>
               </li>
             </Link>
