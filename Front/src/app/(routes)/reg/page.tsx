@@ -1,7 +1,10 @@
 import Image from "next/image";
-import LoginForm from "./components/LoginForm";
+import RegForm from "./components/RegForm";
 
-const Login = () => {
+const regReq = () => {
+  fetch("");
+};
+const Register = () => {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="w-[75px] h-[60px] md:w-[100px] md:h-[75px] relative">
@@ -12,9 +15,9 @@ const Login = () => {
           className="bg-primary-1 rounded-lg p-2"
         />
       </div>
-      <LoginForm />
+      <RegForm />
     </div>
   );
 };
 
-export default Login;
+export default Register;
