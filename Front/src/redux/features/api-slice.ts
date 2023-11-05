@@ -21,6 +21,9 @@ export const eduHubApi = createApi({
         dispatch(Login((await queryFulfilled).data));
       },
     }),
+    // getClasses: builder.query<className[], any>({
+    //   query: () => "/classes",
+    // }),
   }),
 });
 
