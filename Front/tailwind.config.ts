@@ -13,6 +13,7 @@ const config: Config = {
           1: "#3F2768",
           2: "#F4F5FF",
           3: "#C5B8D3",
+          4: "#948EE3",
         },
       },
       transitionProperty: {

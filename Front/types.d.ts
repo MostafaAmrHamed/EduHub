@@ -13,3 +13,8 @@ type loginData = {
   username: string;
   password: string;
 };
+
+type classes = {
+  id: string;
+  name: string;
+};
