@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { Update, Delete } from "@/redux/features/class-slice";
+import {
+  useUpdateClassMutation,
+  useDeleteClassMutation,
+} from "@/redux/features/api-slice";
 
-const ClassItem = ({ id, name }: classes) => {
-  const dispatch = useDispatch<AppDispatch>();
+const ClassItem = ({ _id, name }: getClasses) => {
+  const [updateClass] = useUpdateClassMutation();
+  const [DeleteClass, { isLoading: DeleteLoading }] = useDeleteClassMutation();
   const [edit, setEdit] = useState<boolean>(false);
   const [className, setClassName] = useState<string>(name);
 
@@ -34,7 +36,7 @@ const ClassItem = ({ id, name }: classes) => {
           <button
             className="w-[80px] py-1 text-primary-2 bg-primary-1 hover:shadow-lg transition-shadow rounded"
             onClick={() => {
-              dispatch(Update({ id: id, name: className }));
+              edit && updateClass({ _id, name: className });
               setEdit(!edit);
             }}
           >
@@ -44,8 +46,9 @@ const ClassItem = ({ id, name }: classes) => {
           <button
             className="w-[80px] py-1 text-primary-2 bg-primary-4 hover:shadow-lg transition-shadow rounded"
             onClick={() => {
-              dispatch(Delete(id));
+              DeleteClass(_id);
             }}
+            disabled={DeleteLoading}
           >
             Delete
           </button>

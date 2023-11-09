@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: classes[] = [];
+const initialState: getClasses[] = [];
 export const classSlice = createSlice({
   name: "class",
   initialState,
   reducers: {
-    getClasses: (state, action: PayloadAction<classes[]>) => {
+    getClasses: (state, action: PayloadAction<getClasses[]>) => {
       return action.payload;
     },
     Add: (state, action: PayloadAction<classes>) => {
@@ -13,14 +13,14 @@ export const classSlice = createSlice({
     },
     Update: (state, action: PayloadAction<classes>) => {
       state.filter((classes) => {
-        if (classes.id === action.payload.id) {
+        if (classes._id === action.payload._id) {
           return (classes.name = action.payload.name);
         }
       });
     },
     Delete: (state, action: PayloadAction<string>) => {
       state = state.filter((classes) => {
-        return classes.id !== action.payload;
+        return classes._id !== action.payload;
       });
       return state;
     },

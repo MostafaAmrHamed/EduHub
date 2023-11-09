@@ -1,22 +1,27 @@
 import { useState } from "react";
 import ClassItem from "./ClassItem";
-import { AppDispatch, useAppSelector } from "@/redux/store";
-import { useDispatch } from "react-redux";
-import { Add } from "@/redux/features/class-slice";
+import { useAppSelector } from "@/redux/store";
+import {
+  useAddClassMutation,
+  useGetClassesQuery,
+} from "@/redux/features/api-slice";
 
 const Classes = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const [addClass] = useAddClassMutation();
+  const { isLoading } = useGetClassesQuery("");
   const classData = useAppSelector((state) => state.classReducer);
-  const [classItem, setClassItem] = useState<classes>({ id: "", name: "" });
+  const [classItem, setClassItem] = useState<Pick<classes, "name">>({
+    name: "",
+  });
   const dateChange = (e: any) => {
     setClassItem({ ...classItem, [e.target.name]: e.target.value });
   };
   const handleSubmit = () => {
-    const currentID = classData.length + 1;
-    classItem.id = currentID.toString();
-    dispatch(Add(classItem));
-    setClassItem({ id: "", name: "" });
+    addClass({ name: classItem.name });
+    setClassItem({ name: "" });
   };
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
     <div className="flex flex-col gap-2 mt-5">
@@ -36,8 +41,8 @@ const Classes = () => {
           Add Class
         </button>
       </div>
-      {classData.map((classD) => (
-        <ClassItem id={classD.id} name={classD.name} key={classD.id} />
+      {classData?.map((classD) => (
+        <ClassItem _id={classD._id} name={classD.name} key={classD._id} />
       ))}
     </div>
   );

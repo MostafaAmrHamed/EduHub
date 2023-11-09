@@ -15,6 +15,11 @@ type loginData = {
 };
 
 type classes = {
-  id: string;
+  _id: string;
   name: string;
+};
+type getClasses = classes & {
+  createdAt?: string;
+  updatedAt?: string;
+  __v?: number;
 };
