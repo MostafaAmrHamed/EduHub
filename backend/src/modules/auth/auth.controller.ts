@@ -1,7 +1,14 @@
-import { Controller, Post, UseGuards, Req, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Req,
+  HttpCode,
+  Res,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local.guard';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { HydratedDocument } from 'mongoose';
 import { User } from '../user/schema/user.schema';
 import { ApiTags, ApiBody, ApiResponse } from '@nestjs/swagger';
@@ -23,8 +30,18 @@ export class AuthController {
   })
   @UseGuards(LocalAuthGuard)
   @HttpCode(200)
-  async login(@Req() req: Request) {
+  async login(
+    @Req() req: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
     const user = req.user as HydratedDocument<User>;
-    return this.authService.login(user);
+    const expiresInFourHours = new Date(Date.now() + 60 * 60 * 4 * 1000);
+    const { access_token, name } = await this.authService.login(user);
+    response.cookie('access_token', access_token, {
+      expires: expiresInFourHours,
+      httpOnly: true,
+      secure: true,
+    });
+    return { name };
   }
 }
