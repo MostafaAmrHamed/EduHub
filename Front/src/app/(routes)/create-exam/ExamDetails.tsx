@@ -1,25 +1,34 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
-import Link from "next/link";
+import { useAppSelector } from "@/redux/store";
+import {
+  useGetClassesQuery,
+  useAddExamMutation,
+} from "@/redux/features/api-slice";
 
 const ExamDetails = () => {
-  const [examDetails, setExamDetails] = useState<ExamDetials>({
-    titleOfExam: "",
+  const router = useRouter();
+  const classData = useAppSelector((state) => state.classReducer);
+  const { isLoading } = useGetClassesQuery("");
+  const [AddExam, { isLoading: examLoading }] = useAddExamMutation();
+  const [examDetails, setExamDetails] = useState<createExam>({
+    title: "",
     class: "",
     difficulty: "",
-    time: 1,
+    duration: 1,
   });
-  const Classes = [
-    { value: "", text: "Select class" },
-    { value: "one", text: "One" },
-    { value: "two", text: "Two" },
-    { value: "three", text: "Three" },
-  ];
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    AddExam(examDetails);
+    console.log(examDetails);
+    if (!examLoading) return router.push("create-exam/form");
   };
+
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -32,9 +41,9 @@ const ExamDetails = () => {
           type="text"
           className="p-2.5 w-[220px] h-[40px] md:w-[500px] md:h-[50px] border-primary-3 border-2 outline-none focus:ring-primary-1 focus:border-primary-1 bg-primary-2 rounded"
           onChange={(e) => {
-            setExamDetails({ ...examDetails, titleOfExam: e.target.value });
+            setExamDetails({ ...examDetails, title: e.target.value });
           }}
-          value={examDetails.titleOfExam}
+          value={examDetails.title}
         />
       </div>
       <div className="flex flex-col md:flex-row gap-2 md:gap-[50px]">
@@ -48,9 +57,12 @@ const ExamDetails = () => {
               setExamDetails({ ...examDetails, class: e.target.value });
             }}
           >
-            {Classes.map((Class) => (
-              <option key={Class.value} value={Class.value}>
-                {Class.text}
+            <option key="0" value={""}>
+              Select Class
+            </option>
+            {classData.map((Class) => (
+              <option key={Class._id} value={Class._id}>
+                {Class.name}
               </option>
             ))}
           </select>
@@ -58,14 +70,14 @@ const ExamDetails = () => {
         {/* Time of exam */}
         <div>
           <label className="block mt-2 text-lg"> Duration in mins </label>
-          <div className="flex items-center justify-between p-2 w-[220px] h-[40px] md:w-[200px] md:h-[50px] border-2 border-primary-3 bg-primary-2 rounded text-xl">
+          <div className="flex items-center justify-between p-2 w-[220px] h-[40px] md:w-[200px] md:h-[50px] border-2 border-primary-3 bg-primary-2 rounded text-xl hover:border-primary-1">
             <p
               className="text-4xl text-primary-1 pr-2 border-r-2 border-primary-3 leading-7 cursor-pointer select-none"
               onClick={(e) => {
-                examDetails.time > 1
+                examDetails.duration > 1
                   ? setExamDetails({
                       ...examDetails,
-                      time: examDetails.time - 1,
+                      duration: examDetails.duration - 1,
                     })
                   : "";
               }}
@@ -79,19 +91,19 @@ const ExamDetails = () => {
               onChange={(e) => {
                 setExamDetails({
                   ...examDetails,
-                  time: Number(e.target.value),
+                  duration: Number(e.target.value),
                 });
               }}
-              value={examDetails.time}
+              value={examDetails.duration}
               maxLength={3}
             />
             <p
               className="text-4xl text-primary-1 pl-2 border-l-2 border-primary-3 leading-7 cursor-pointer select-none"
               onClick={(e) => {
-                examDetails.time <= 180
+                examDetails.duration <= 180
                   ? setExamDetails({
                       ...examDetails,
-                      time: examDetails.time + 1,
+                      duration: examDetails.duration + 1,
                     })
                   : "";
               }}
@@ -108,10 +120,10 @@ const ExamDetails = () => {
         <div className="flex flex-col gap-2 justify-items-center md:flex-row md:gap-[25px] text-lg">
           <div
             className={`flex gap-1 items-center justify-center w-[220px] h-[40px] md:w-[150px] md:h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
-              examDetails.difficulty === "easy" && " !border-primary-1"
+              examDetails.difficulty === "EASY" && " !border-primary-1"
             }`}
             onClick={() => {
-              setExamDetails({ ...examDetails, difficulty: "easy" });
+              setExamDetails({ ...examDetails, difficulty: "EASY" });
             }}
           >
             <div className="relative w-5 h-7">
@@ -121,10 +133,10 @@ const ExamDetails = () => {
           </div>
           <div
             className={`flex gap-1 items-center justify-center w-[220px] h-[40px] md:w-[150px] md:h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
-              examDetails.difficulty === "medium" && " !border-primary-1"
+              examDetails.difficulty === "MEDIUM" && " !border-primary-1"
             } `}
             onClick={() => {
-              setExamDetails({ ...examDetails, difficulty: "medium" });
+              setExamDetails({ ...examDetails, difficulty: "MEDIUM" });
             }}
           >
             <div className="relative w-5 h-7">
@@ -134,10 +146,10 @@ const ExamDetails = () => {
           </div>
           <div
             className={`flex gap-1 items-center justify-center w-[220px] h-[40px] md:w-[150px] md:h-[50px] border-2 bg-primary-2 rounded border-primary-3 cursor-pointer transition-all duration-300 hover:border-primary-1 ${
-              examDetails.difficulty === "hard" && " !border-primary-1"
+              examDetails.difficulty === "HARD" && " !border-primary-1"
             } `}
             onClick={() => {
-              setExamDetails({ ...examDetails, difficulty: "hard" });
+              setExamDetails({ ...examDetails, difficulty: "HARD" });
             }}
           >
             <div className="relative w-5 h-7">
@@ -150,15 +162,12 @@ const ExamDetails = () => {
 
       {/* Next Button */}
       <div className="flex !justify-end mt-2">
-        <Link
+        <button
+          type="submit"
           className="flex items-center justify-center border-2 border-primary-1 w-[220px] h-[40px] md:w-[150px] md:h-[50px] rounded text-lg text-primary-2 bg-primary-1 transition-all hover:pl-2 ease-in-out duration-300"
-          onClick={() => {
-            console.log(examDetails);
-          }}
-          href="/create-exam/form"
         >
           Next <IoIosArrowForward />
-        </Link>
+        </button>
       </div>
     </form>
   );

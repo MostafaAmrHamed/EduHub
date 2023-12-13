@@ -1,14 +1,15 @@
 "use client";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Login } from "@/redux/features/user-slice";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "@/redux/features/api-slice";
-
 const LoginForm = () => {
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const [loginApi] = useLoginMutation();
+  const [loginApi, { isLoading }] = useLoginMutation();
   const [loginData, setLoginData] = useState<loginData>({
     username: "",
     password: "",
@@ -19,20 +20,16 @@ const LoginForm = () => {
   };
   const LoginUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    loginApi({ username: loginData.username, password: loginData.password });
-    // try {
-    //   const resp = await axios.post(
-    //     "https://educationhub.onrender.com/api/auth/login",
-    //     loginData
-    //   );
-    //   const userData: userInfo = {
-    //     name: loginData.username,
-    //     token: resp.data.access_token,
-    //   };
-    //   dispatch(Login(userData));
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    // await loginApi({
+    //   username: loginData.username,
+    //   password: loginData.password,
+    // });
+    await axios.post(
+      "https://educationhub.onrender.com/api/auth/login",
+      { username: loginData.username, password: loginData.password },
+      { withCredentials: true }
+    );
+    if (!isLoading) router.push("/home");
   };
   return (
     <form onSubmit={LoginUser}>

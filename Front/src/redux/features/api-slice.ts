@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Login } from "./user-slice";
 import { getClasses, Update, Add, Delete } from "./class-slice";
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNoZXRvcyIsInN1YiI6IjY1MmI1NmNiMDFlMjNiYTg3NmUwYzJkYyIsImlhdCI6MTY5OTUzMDA1MSwiZXhwIjoxNjk5NTQ0NDUxfQ.Tce9E9N61uvSOv3b7aP-zZ2woFe4gKJRKhquHIIcAYY";
+
+let token = "";
+
 export const eduHubApi = createApi({
   reducerPath: "eduHubApi",
   baseQuery: fetchBaseQuery({
@@ -19,10 +20,14 @@ export const eduHubApi = createApi({
           url: `/auth/login`,
           method: "POST",
           body: loginData,
+          withCredentials: true,
         };
       },
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        dispatch(Login((await queryFulfilled).data));
+        if (await queryFulfilled) {
+          dispatch(Login((await queryFulfilled).data));
+          token = (await queryFulfilled).data.access_token;
+        }
       },
     }),
     /* End of Auth Login Api */
@@ -33,9 +38,10 @@ export const eduHubApi = createApi({
         return {
           url: `/classes`,
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
         };
       },
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -48,9 +54,10 @@ export const eduHubApi = createApi({
           url: `/classes`,
           method: "POST",
           body: classes,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          // },
         };
       },
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -98,6 +105,36 @@ export const eduHubApi = createApi({
       },
     }),
     /* End of CLass Api */
+
+    /* Start of create-exam */
+    addExam: builder.mutation<exam, createExam>({
+      query: (createExam) => {
+        return {
+          url: `/exam`,
+          method: "POST",
+          body: createExam,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
+    /* End of create-exam */
+
+    /* Start of Exam-Question Api */
+    addImage: builder.mutation<uploadImage, any>({
+      query: (any) => {
+        return {
+          url: "/upload",
+          method: "POST",
+          body: any,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+    }),
+    /* End of Exam-Question Api */
   }),
 });
 
@@ -108,4 +145,6 @@ export const {
   useUpdateClassMutation,
   useDeleteClassMutation,
   useGetSingleClassQuery,
+  useAddExamMutation,
+  useAddImageMutation,
 } = eduHubApi;
