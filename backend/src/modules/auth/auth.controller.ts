@@ -41,7 +41,7 @@ export class AuthController {
       expires: expiresInFourHours,
       httpOnly: true,
       secure: true,
-      sameSite: 'None',
+      sameSite: 'none',
     });
     return { name };
   }
