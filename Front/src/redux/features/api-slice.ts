@@ -2,8 +2,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Login } from "./user-slice";
 import { getClasses, Update, Add, Delete } from "./class-slice";
 
-let token = "";
-
 export const eduHubApi = createApi({
   reducerPath: "eduHubApi",
   baseQuery: fetchBaseQuery({
@@ -20,17 +18,30 @@ export const eduHubApi = createApi({
           url: `/auth/login`,
           method: "POST",
           body: loginData,
-          withCredentials: true,
+          credentials: "include",
         };
       },
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         if (await queryFulfilled) {
           dispatch(Login((await queryFulfilled).data));
-          token = (await queryFulfilled).data.access_token;
         }
       },
     }),
     /* End of Auth Login Api */
+
+    /* Start of Add Student Api */
+    addStudent: builder.mutation<addStudentSuccessResponse, addStudent>({
+      query(addStudent) {
+        return {
+          url: `/user`,
+          method: "POST",
+          body: addStudent,
+          credentials: "include",
+        };
+      },
+      async onQueryStarted(arg, { queryFulfilled }) {},
+    }),
+    /* End of Add Student Api */
 
     /* Start of CLass Api */
     getClasses: builder.query<getClasses[], any>({
@@ -38,7 +49,7 @@ export const eduHubApi = createApi({
         return {
           url: `/classes`,
           method: "GET",
-          withCredentials: true,
+          credentials: "include",
           // headers: {
           //   Authorization: `Bearer ${token}`,
           // },
@@ -54,10 +65,7 @@ export const eduHubApi = createApi({
           url: `/classes`,
           method: "POST",
           body: classes,
-          withCredentials: true,
-          // headers: {
-          //   Authorization: `Bearer ${token}`,
-          // },
+          credentials: "include",
         };
       },
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -70,9 +78,7 @@ export const eduHubApi = createApi({
           url: `/classes/${classes._id}`,
           method: "PATCH",
           body: { name: classes.name },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         };
       },
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -84,9 +90,7 @@ export const eduHubApi = createApi({
         return {
           url: `/classes/${id}`,
           method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         };
       },
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -98,9 +102,7 @@ export const eduHubApi = createApi({
         return {
           url: `/classes/${id}`,
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         };
       },
     }),
@@ -113,9 +115,7 @@ export const eduHubApi = createApi({
           url: `/exam`,
           method: "POST",
           body: createExam,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         };
       },
     }),
@@ -128,9 +128,7 @@ export const eduHubApi = createApi({
           url: "/upload",
           method: "POST",
           body: any,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         };
       },
     }),
@@ -140,6 +138,7 @@ export const eduHubApi = createApi({
 
 export const {
   useLoginMutation,
+  useAddStudentMutation,
   useAddClassMutation,
   useGetClassesQuery,
   useUpdateClassMutation,

@@ -1,14 +1,9 @@
 "use client";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
-import { Login } from "@/redux/features/user-slice";
-import { AppDispatch } from "@/redux/store";
-import { useDispatch } from "react-redux";
 import { useLoginMutation } from "@/redux/features/api-slice";
 const LoginForm = () => {
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
   const [loginApi, { isLoading }] = useLoginMutation();
   const [loginData, setLoginData] = useState<loginData>({
     username: "",
@@ -20,15 +15,10 @@ const LoginForm = () => {
   };
   const LoginUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // await loginApi({
-    //   username: loginData.username,
-    //   password: loginData.password,
-    // });
-    await axios.post(
-      "https://educationhub.onrender.com/api/auth/login",
-      { username: loginData.username, password: loginData.password },
-      { withCredentials: true }
-    );
+    await loginApi({
+      username: loginData.username,
+      password: loginData.password,
+    });
     if (!isLoading) router.push("/home");
   };
   return (

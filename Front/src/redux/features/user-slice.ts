@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: userInfo = {
   name: "",
-  access_token: "",
 };
 export const userSlice = createSlice({
   name: "user",

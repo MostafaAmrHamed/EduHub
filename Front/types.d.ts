@@ -1,13 +1,26 @@
 type userInfo = {
   name: string;
-  access_token: string;
 };
-
+type addStudentSuccessResponse = {
+  message: string;
+  data: {
+    name: string;
+  };
+};
+type addStudentErrorResponse = {
+  statusCode: number;
+  message: string;
+};
 type loginData = {
   username: string;
   password: string;
 };
-
+type addStudent = {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  class: string;
+};
 type classes = {
   _id: string;
   name: string;

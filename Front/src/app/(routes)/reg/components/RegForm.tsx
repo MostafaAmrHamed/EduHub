@@ -1,12 +1,12 @@
 "use client";
 import { FormEvent, useState } from "react";
 import axios from "axios";
-
+import { useAddStudentMutation } from "@/redux/features/api-slice";
 const RegForm = () => {
-  const [regData, setRegData] = useState({
+  const [addStudent] = useAddStudentMutation();
+  const [regData, setRegData] = useState<addStudent>({
     name: "",
     email: "",
-    password: "",
     phoneNumber: "",
     class: "",
   });
@@ -15,15 +15,13 @@ const RegForm = () => {
   };
   const CreateUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const resp = await axios.post(
-        "https://educationhub.onrender.com/user",
-        regData
-      );
-      console.log(resp.data);
-    } catch (error) {
-      console.log(error);
-    }
+    await addStudent(regData);
+    //   const temp = await addStudent(regData);
+    //   if (temp.error) {
+    //     console.log("Error " + temp.error.data.message);
+    //   } else {
+    //     console.log("Data " + temp.data.data + " " + temp.data.message);
+    //   }
   };
   return (
     <form onSubmit={CreateUser}>
@@ -47,17 +45,6 @@ const RegForm = () => {
           placeholder="example@edu.com"
           onChange={updateValues}
           value={regData.email}
-        />
-      </div>
-      <div className="mt-5">
-        <label className="block mt-2 text-lg">Password</label>
-        <input
-          type="password"
-          name="password"
-          className="p-2.5 w-[220px] h-[40px] md:w-[500px] md:h-[50px] border-primary-3 border-2 outline-none focus:ring-primary-1 focus:border-primary-1 bg-primary-2 rounded"
-          placeholder="••••••••"
-          onChange={updateValues}
-          value={regData.password}
         />
       </div>
       <div>
