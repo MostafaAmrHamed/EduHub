@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ClassesModule } from './modules/classes/classes.module';
 import { ExamModule } from './modules/exam/exam.module';
 import { FileUploadModule } from './modules/file_upload/file_upload.module';
+import { QuestionModule } from './modules/question/question.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { FileUploadModule } from './modules/file_upload/file_upload.module';
     ClassesModule,
     ExamModule,
     FileUploadModule,
+    QuestionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
