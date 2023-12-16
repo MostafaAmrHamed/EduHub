@@ -10,6 +10,7 @@ import { ClassesModule } from './modules/classes/classes.module';
 import { ExamModule } from './modules/exam/exam.module';
 import { FileUploadModule } from './modules/file_upload/file_upload.module';
 import { QuestionModule } from './modules/question/question.module';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -23,6 +24,8 @@ import { QuestionModule } from './modules/question/question.module';
         PORT: Joi.number().default(3001),
         MONGO_URI: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
+        email: Joi.string().required(),
+        password: Joi.string().required(),
       }),
     }),
     MongooseModule.forRootAsync({
@@ -39,6 +42,7 @@ import { QuestionModule } from './modules/question/question.module';
     ExamModule,
     FileUploadModule,
     QuestionModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
