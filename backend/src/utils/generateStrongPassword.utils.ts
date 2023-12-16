@@ -20,7 +20,3 @@ export function generateStrongPassword(length = 12) {
 
   return password;
 }
-
-// Example usage:
-const strongPassword = generateStrongPassword();
-console.log(strongPassword);
