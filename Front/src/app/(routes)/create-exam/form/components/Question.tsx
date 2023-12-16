@@ -3,15 +3,17 @@ import React, { useState } from "react";
 import Answer from "./Answer";
 import { RxDragHandleDots2, RxCross2 } from "react-icons/rx";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import { useAddImageMutation } from "@/redux/features/api-slice";
 import Image from "next/image";
 const Question = () => {
-  const [addImage, { data }] = useAddImageMutation();
+  const [addImage, { data, reset }] = useAddImageMutation();
   const uploadImage = async (file: File) => {
     const form = new FormData();
     form.append("file", file);
     await addImage(form);
   };
+
   return (
     <div className="bg-primary-2 p-5 w-[1000px]">
       <div className="flex justify-between px-2 mb-3">
@@ -33,6 +35,7 @@ const Question = () => {
               placeholder="Question title?"
             />
           </label>
+          {/* Image - Upload */}
           <div>
             <input
               type="file"
@@ -54,20 +57,37 @@ const Question = () => {
           </div>
         </div>
         {data?.link ? (
-          <div className="relative max-w-[800px] h-[200px]">
-            <Image
-              src={data?.link}
-              alt="question-image"
-              fill
-              className="h-full w-full object-contain"
-            />
-          </div>
+          <>
+            <div className="flex justify-end mr-5">
+              <button
+                //Clear ID that data will send to back... and make the "ID" ternary op on image
+                onClick={() => {
+                  reset;
+                }}
+                className="flex items-center text-primary-3 hover:text-primary-1 cursor-pointer transition-all"
+              >
+                Delete Image
+                <MdDelete size={32} />
+              </button>
+            </div>
+            <div className="relative max-w-[800px] h-[200px]">
+              <Image
+                src={data?.link}
+                alt="question-image"
+                fill
+                className="h-full w-full object-contain"
+              />
+            </div>
+          </>
         ) : null}
 
         <div className="flex flex-col gap-2">
           <Answer />
           <Answer />
           <Answer />
+          <p className="text-right text-xl text-primary-3 cursor-pointer hover:text-primary-1 transition-all">
+            Add choice +
+          </p>
         </div>
       </form>
     </div>

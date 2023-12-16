@@ -1,6 +1,5 @@
 "use client";
 import { FormEvent, useState } from "react";
-import axios from "axios";
 import { useAddStudentMutation } from "@/redux/features/api-slice";
 const RegForm = () => {
   const [addStudent] = useAddStudentMutation();
