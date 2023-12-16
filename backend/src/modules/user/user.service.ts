@@ -6,10 +6,14 @@ import { User } from './schema/user.schema';
 import { CreateUserDto } from './Dtos/createUser.dto';
 import { generateStrongPassword } from 'src/utils/generateStrongPassword.utils';
 import { DuplicateUserException } from 'src/exceptions/duplicateUser.exception';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userRepo: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userRepo: Model<User>,
+    private mailService: MailService,
+  ) {}
 
   async createUser(userData: CreateUserDto) {
     const generatedPassword = generateStrongPassword(18);
@@ -18,7 +22,10 @@ export class UserService {
         ...userData,
         password: generatedPassword,
       });
-
+      await this.mailService.sendLoginDetails(userData.email, {
+        username: createdUser.name,
+        password: generatedPassword,
+      });
       return {
         message: 'User successfully created.',
         data: { name: createdUser.name },
