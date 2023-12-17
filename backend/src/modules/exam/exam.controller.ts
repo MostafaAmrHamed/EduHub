@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { ExamService } from './exam.service';
 import { CreateExamDto } from './dto/create-exam.dto';
-import { UpdateExamDto } from './dto/update-exam.dto';
 import { JwtGuard } from '../auth/guards/jwt.guard';
 import { Roles } from '../auth/decorators/role.decorator';
 import { Role } from '../user/schema/user.schema';
@@ -23,6 +22,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { ExamQuestionsDto } from './dto/exam_questions.dto';
+import { UpdateExamDto } from './dto/update-exam.dto';
 
 @ApiTags('Exam')
 @ApiBearerAuth('access_token')
@@ -66,11 +67,18 @@ export class ExamController {
     summary: 'Updates an exam. ADMIN ONLY',
   })
   @Roles(Role.ADMIN)
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExamDto: UpdateExamDto) {
-    return this.examService.update(+id, updateExamDto);
+  @Patch(':id/questions')
+  updateQuestions(
+    @Param('id') id: string,
+    @Body() updateExamDto: ExamQuestionsDto,
+  ) {
+    return this.examService.updateQuestions(id, updateExamDto);
   }
-
+  @Roles(Role.ADMIN)
+  @Patch(':id')
+  updateExam(@Param('id') id: string, @Body() updateExamDto: UpdateExamDto) {
+    return this.examService.updateExam(id, updateExamDto);
+  }
   @ApiResponse({ status: HttpStatus.OK, type: CreateExamDto })
   @ApiOperation({
     summary: 'Deletes an exam. ADMIN ONLY',

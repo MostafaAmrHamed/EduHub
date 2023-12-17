@@ -1,16 +1,24 @@
-import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
+import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type Answer = {
-  choice: string;
-  isCorrect: boolean;
+export type QuestionBody = {
+  text: null | string;
+  image: null | string;
 };
 @Schema({ timestamps: true })
 export class Question {
-  @Prop({ required: true })
-  title: string;
+  @Prop({
+    required: true,
+    type: {
+      text: { type: String, default: null },
+      image: { type: String, default: null },
+    },
+  })
+  question: QuestionBody;
 
-  @Prop({ required: true })
+  @Prop({
+    required: true,
+  })
   answers: string[];
 
   @Prop({ required: true })
@@ -18,5 +26,4 @@ export class Question {
 }
 
 export type QuestionDocument = HydratedDocument<Question>;
-
 export const QuestionSchema = SchemaFactory.createForClass(Question);

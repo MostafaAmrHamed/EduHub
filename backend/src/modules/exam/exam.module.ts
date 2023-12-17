@@ -4,6 +4,7 @@ import { ExamController } from './exam.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Exam, ExamSchema } from './entities/exam.entity';
 import { AuthModule } from '../auth/auth.module';
+import { QuestionModule } from '../question/question.module';
 
 @Module({
   controllers: [ExamController],
@@ -11,6 +12,7 @@ import { AuthModule } from '../auth/auth.module';
   imports: [
     MongooseModule.forFeature([{ name: Exam.name, schema: ExamSchema }]),
     AuthModule,
+    QuestionModule,
   ],
 })
 export class ExamModule {}
