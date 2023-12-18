@@ -14,12 +14,20 @@ export class ExamService {
     private questionService: QuestionService,
   ) {}
 
-  create(createExamDto: CreateExamDto) {
-    return this.examRepo.create(createExamDto);
+  async create(createExamDto: CreateExamDto) {
+    try {
+      const exam = await this.examRepo.create(createExamDto);
+      return { status: 'success', message: 'Exam created', data: exam };
+    } catch (error) {
+      return {
+        status: 'error',
+        error,
+      };
+    }
   }
 
   findAll() {
-    return this.examRepo.find();
+    return this.examRepo.find().populate('class');
   }
 
   findOne(id: number) {
