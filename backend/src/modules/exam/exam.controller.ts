@@ -24,6 +24,7 @@ import {
 } from '@nestjs/swagger';
 import { ExamQuestionsDto } from './dto/exam_questions.dto';
 import { UpdateExamDto } from './dto/update-exam.dto';
+import { CreateExamResponse } from './dto/create-exam-response.dto';
 
 @ApiTags('Exam')
 @ApiBearerAuth('access_token')
@@ -33,7 +34,7 @@ export class ExamController {
   constructor(private readonly examService: ExamService) {}
 
   @ApiBody({ type: CreateExamDto })
-  @ApiResponse({ status: HttpStatus.CREATED, type: CreateExamDto })
+  @ApiResponse({ status: HttpStatus.CREATED, type: CreateExamResponse })
   @ApiOperation({
     summary: 'Creates an exam. ADMIN ONLY.',
   })
