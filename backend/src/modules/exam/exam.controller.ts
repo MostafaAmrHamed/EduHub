@@ -61,10 +61,10 @@ export class ExamController {
     return this.examService.findOne(+id);
   }
 
-  @ApiBody({ type: CreateExamDto })
+  @ApiBody({ type: ExamQuestionsDto })
   @ApiResponse({ status: HttpStatus.OK, type: CreateExamDto })
   @ApiOperation({
-    summary: 'Updates an exam. ADMIN ONLY',
+    summary: 'Updates exam questions. ADMIN ONLY',
   })
   @Roles(Role.ADMIN)
   @Patch(':id/questions')
@@ -74,6 +74,7 @@ export class ExamController {
   ) {
     return this.examService.updateQuestions(id, updateExamDto);
   }
+
   @Roles(Role.ADMIN)
   @Patch(':id')
   updateExam(@Param('id') id: string, @Body() updateExamDto: UpdateExamDto) {

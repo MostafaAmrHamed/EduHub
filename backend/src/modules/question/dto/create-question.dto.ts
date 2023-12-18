@@ -13,6 +13,7 @@ import {
   ValidationArguments,
 } from 'class-validator';
 import mongoose from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 
 @ValidatorConstraint({ name: 'nonEmptyString', async: false })
 export class NonEmptyStringValidator implements ValidatorConstraintInterface {
@@ -31,23 +32,28 @@ export class NonEmptyStringValidator implements ValidatorConstraintInterface {
 }
 
 export class QuestionBodyDto {
+  @ApiProperty()
   @IsOptional()
   @IsString()
   text: null | string;
 
+  @ApiProperty()
   @IsOptional()
   @IsString()
   image: null | string;
 }
 
 export class CreateQuestionDto {
+  @ApiProperty({ type: String, required: false })
   @IsOptional()
   _id: mongoose.Types.ObjectId;
 
   @ValidateNested()
+  @ApiProperty({ type: QuestionBodyDto })
   @Type(() => QuestionBodyDto)
   question: QuestionBodyDto;
 
+  @ApiProperty({ type: [String] })
   @IsArray()
   @IsString({ each: true })
   @ArrayMinSize(2, { message: 'At least 2 answers are required' })
@@ -57,6 +63,7 @@ export class CreateQuestionDto {
   })
   answers: string[];
 
+  @ApiProperty({})
   @IsString()
   correctAnswer: string;
 }

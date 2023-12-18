@@ -26,7 +26,7 @@ export class CreateExamDto {
   @IsEnum(Difficulty)
   difficulty: Difficulty;
 
-  @ApiProperty()
+  @ApiProperty({ type: String })
   @IsNotEmpty()
   @IsMongoId()
   class: mongoose.Schema.Types.ObjectId;
